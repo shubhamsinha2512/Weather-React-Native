@@ -26,17 +26,17 @@ import Feather from 'react-native-vector-icons/Feather'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 
 import {DayIcons, NightIcons} from './src/common/icons'
-
+import Gradients, {Sunny} from './src/common/gradients'
 const App = () => {
     return (
 
       <SafeAreaView>
         <ScrollView style={styles.container}>
         <LinearGradient
-        start={{x: 0.0, y: 0.25}} 
-        end={{x: 0.5, y: 1.0}}
-        // locations={[0,0.5,0.6]}
-        colors={['#eeb730', '#f19727', '#e9631d']} 
+        start={Sunny.start} 
+        end={Sunny.end}
+        // locations={[0,0.6]}
+        colors={Sunny.colors} 
         style={styles.linearGradient}
       >
  
@@ -53,7 +53,7 @@ const App = () => {
         <Image style={{width:64, height:64}} source={NightIcons.n_icon227} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon230} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon248} />
-        <Image style={{width:64, height:64}} source={NightIcons.n_icon260} />
+        {/* <Image style={{width:64, height:64}} source={NightIcons.n_icon260} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon263} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon266} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon281} />
@@ -89,7 +89,6 @@ const App = () => {
         <Image style={{width:64, height:64}} source={NightIcons.n_icon392} />
         <Image style={{width:64, height:64}} source={NightIcons.n_icon395} />
   
-        {/* day icons */}
         <Image style={{width:64, height:64}} source={DayIcons.d_icon113} />
         <Image style={{width:64, height:64}} source={DayIcons.d_icon116} />
         <Image style={{width:64, height:64}} source={DayIcons.d_icon119} />
@@ -137,7 +136,7 @@ const App = () => {
         <Image style={{width:64, height:64}} source={DayIcons.d_icon386} />
         <Image style={{width:64, height:64}} source={DayIcons.d_icon389} />
         <Image style={{width:64, height:64}} source={DayIcons.d_icon392} />
-        <Image style={{width:64, height:64}} source={DayIcons.d_icon395} />
+        <Image style={{width:64, height:64}} source={DayIcons.d_icon395} /> 
 
         {/* <MaterialIcons name={'wb-sunny'} size={18} color={'#000'} />
         <MaterialIcons name={'bolt'} size={18} color={'#000'} />
@@ -153,7 +152,8 @@ const App = () => {
 const styles = StyleSheet.create({
   container:{
     display:'flex',
-    height:'90%'
+    height:'100%',
+    backgroundColor:'#fff'
   },
   linearGradient:{
     color:'#fff',
