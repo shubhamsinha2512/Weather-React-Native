@@ -1,31 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, { Component } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
-
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; 
-import {HomeScreen, ForecastScreen} from './src/screens'
-
-import CurrentProvider from './src/contexts/CurrentContext';
-import TodayForecastProvider from './src/contexts/TodayForecastContext';
-
-import {DayIcons, NightIcons} from './src/common/icons'
-
-import getWeatherDetails from './src/common/methods/API_METHODS'
-
-const RootStack = createStackNavigator();
-
+import { createContext } from 'react'
 
 let default_data = 
 {
@@ -3018,8 +2991,8 @@ let current_default = {
     },
     current : {
         temp_now : default_data.current.temp_c,
-        temp_min : default_data.forecast.forecastday[0].day.mintemp_c,
-        temp_max : default_data.forecast.forecastday[0].day.maxtemp_c,
+        temp_min : default_data.forecast.forecastday[0].day.maxtemp_c,
+        temp_max : default_data.forecast.forecastday[0].day.mintemp_c,
         condition_code: default_data.current.condition.code,
         feelslike : default_data.current.feelslike_c,
         sunrise: default_data.forecast.forecastday[0].astro.sunrise,
@@ -3031,54 +3004,9 @@ let current_default = {
     }
 }
 
-class App extends Component {
+// getWeatherData('Muzaffarpur');
 
-  constructor(props){
-    super(props)
+export const CurrentConext = createContext(current_default);
+export const CurrentProvider = CurrentConext.Provider;
 
-    this.state = {
-      current: current_default,
-      forecast : {}
-    }
-    console.log(this.state)
-    
-  }
-
-
-  componentDidMount(){
-    getWeatherDetails('delhi')
-    .then(res => this.setState({...this.state, current : res}))
-    .catch(err => console.log(err))
-
-    console.log("mounted", this.state.current)
-  }
-
-  render(){
-    return (
-      <NavigationContainer style={styles.navigationContainer}>
-            <RootStack.Navigator 
-              style={styles.navigator}
-              initialRouteName='Home'
-              headerMode='none'  
-              >
-
-              <RootStack.Screen name='Home' component={()=>
-                <CurrentProvider value={this.state.current}>
-                  <TodayForecastProvider>
-                    <HomeScreen />
-                  </TodayForecastProvider>
-                </CurrentProvider>
-                }
-              />
-              <RootStack.Screen name='Forecast' component={ForecastScreen} />
-            </RootStack.Navigator>
-      </NavigationContainer>
-    )
-  }
-};
-
-const styles = StyleSheet.create({
-
-});
-
-export default App;
+export default CurrentProvider;
