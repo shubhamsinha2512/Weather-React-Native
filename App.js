@@ -19,6 +19,7 @@ import {HomeScreen, ForecastScreen} from './src/screens'
 
 import CurrentProvider from './src/contexts/CurrentContext';
 import TodayForecastProvider from './src/contexts/TodayForecastContext';
+import DayForecastProvider from './src/contexts/DayForecastContext';
 
 import {DayIcons, NightIcons} from './src/common/icons'
 
@@ -3038,19 +3039,22 @@ class App extends Component {
 
     this.state = {
       current: current_default,
-      forecast : {}
+      forecast : [],
+      todayForecast : []
     }
-    console.log(this.state)
-    
+    // console.log(this.state)
   }
 
 
   componentDidMount(){
-    getWeatherDetails('delhi')
-    .then(res => this.setState({...this.state, current : res}))
+    getWeatherDetails('patna')
+    .then(res => {
+      this.setState({...this.state, current : res.current, forecast:res.forecast, todayForecast: res.dayForecast})
+      // console.log(this.state.forecast)
+    })
     .catch(err => console.log(err))
 
-    console.log("mounted", this.state.current)
+    // console.log("mounted", this.state.forecast)
   }
 
   render(){
@@ -3064,9 +3068,11 @@ class App extends Component {
 
               <RootStack.Screen name='Home' component={()=>
                 <CurrentProvider value={this.state.current}>
-                  <TodayForecastProvider>
-                    <HomeScreen />
-                  </TodayForecastProvider>
+                  <DayForecastProvider value={this.state.forecast}>
+                    <TodayForecastProvider value={this.state.todayForecast}>
+                      <HomeScreen />
+                    </TodayForecastProvider>
+                  </DayForecastProvider>
                 </CurrentProvider>
                 }
               />

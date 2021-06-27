@@ -4,8 +4,8 @@ import { StyleSheet, Text, View } from 'react-native'
 const AstroContainer = ({title, value}) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Sunrise</Text>
-            <Text style={styles.value}>3:55 am</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.value}>{value}</Text>
         </View>
     )
 }

@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import TimeSummary from '../TimeSummary'
 
+import { TodayForecastContext } from '../../contexts/TodayForecastContext'
+
 const TodayForecast = () => {
+
+    const todayForecast = useContext(TodayForecastContext)
+    // console.log('today', todayForecast)
     return (
         <View style={styles.container}>
-            <TimeSummary time='2pm' temp='29'/>
-            <TimeSummary time='2pm' temp='29'/>
-            <TimeSummary time='2pm' temp='29'/>
-            <TimeSummary time='2pm' temp='29'/>
-            <TimeSummary time='2pm' temp='29'/>
+            {todayForecast.map((hour, i)=>{
+                return <TimeSummary 
+                    key={'time'+i} 
+                    time={hour.time} 
+                    temp={hour.temp_c}
+                />
+            })}
         </View>
     )
 }

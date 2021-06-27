@@ -4,13 +4,33 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 
 
-const DayForecastRow = ({day, icon, max, min}) => {
+const DayForecastRow = ({date, condition_code, max, min}) => {
+
+    function getDay(date){
+        let day = new Date(date).getDay();
+
+        switch(day){
+            case 0 : return 'Sunday';break;
+            case 1 : return 'Monday';break;
+            case 2 : return 'Tuesday';break;
+            case 3 : return 'Wednesday';break;
+            case 4 : return 'Thursday';break;
+            case 5 : return 'Friday';break;
+            case 6 : return 'Saturday';break;
+            default: return 'Day Here'
+        }
+    }
+
+    function formatTemp(temp){
+        return Math.round(temp).toFixed()
+    }
+
     return (
         <TouchableOpacity style={styles.container}>
-            <Text style={styles.day}>Tuesday</Text>
+            <Text style={styles.day}>{getDay(date)}</Text>
             <Fontisto name='day-sunny' size={20} color='#fff' />
-            <Text style={styles.max}>23&deg;C</Text>
-            <Text style={styles.min}>12&deg;C</Text>
+            <Text style={styles.max}>{max ? formatTemp(max) : 28}&deg;C</Text>
+            <Text style={styles.min}>{min ? formatTemp(min) : 14}&deg;C</Text>
         </TouchableOpacity>
     )
 }

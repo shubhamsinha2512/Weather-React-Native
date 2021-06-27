@@ -2,10 +2,25 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 const TimeSummary = ({time, temp}) => {
+
+    
+    function getHour(time){
+        console.log(time.slice(11,13))
+        let hour = time.slice(11,13);
+        const ampm = hour >= 12 ? 'pm' : 'am';
+        hour = parseInt(hour % 12) == 0 ? 12 : parseInt(hour%12);
+
+        return hour + ampm;
+    }
+
+    function formatTemp(temp){
+        return Math.round(temp).toFixed()
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.time}>{time}</Text>
-            <Text style={styles.temp}>{temp}&deg;C</Text>
+            <Text style={styles.time}>{getHour(time)}</Text>
+            <Text style={styles.temp}>{formatTemp(temp)}&deg;C</Text>
         </View>
     )
 }

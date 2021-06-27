@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { CurrentConext } from '../../contexts/CurrentContext'
 
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
@@ -7,6 +7,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 
 import {weather} from '../../common/Strings/weather'
+import {DayIcons, NightIcons} from '../../common/icons/index'
 
 const CurrentSummary = () => {
 
@@ -24,8 +25,13 @@ const CurrentSummary = () => {
             if(obj.code == condition_code) return obj
         })
 
-        return dayOrNight == 'day' ? Condition_Obj.day : Condition_Obj.night
+        const dn = dayOrNight == 'day' ? Condition_Obj.day : Condition_Obj.night;
+        const icon = Condition_Obj.icon;
+
+        return [dn, icon]
     }   
+
+    const code_var = getConditionText(current.condition_code, weather, 'day');
 
     return (
         <View style={styles.container}>
@@ -48,7 +54,7 @@ const CurrentSummary = () => {
                 </View>
 
                 <View style={styles.condition}>
-                    <Text style={styles.conditionText}>{getConditionText(current.condition_code, weather, 'day')}</Text>
+                    <Text style={styles.conditionText}>{code_var[0]}</Text>
                     <Text style={styles.feelsLike}>Feels like {current.feelslike && formatTemp(current.feelslike)}&deg;</Text>
                 </View>
             </View>
@@ -57,6 +63,7 @@ const CurrentSummary = () => {
                 <View style={styles.iconBG}>
                 </View>
                     <Fontisto name='day-sunny' size={200} color='#fff' />
+                    <Image source={DayIcons.d_icon + code_var[1]} />
             </View>
         </View>
     )

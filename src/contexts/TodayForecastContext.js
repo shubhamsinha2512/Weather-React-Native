@@ -1,6 +1,6 @@
 import {createContext} from 'react'
 
-export const TodayForecastcontext = createContext();
-export const TodayForecastProvider = TodayForecastcontext.Provider;
+export const TodayForecastContext = createContext();
+export const TodayForecastProvider = TodayForecastContext.Provider;
 
 export default TodayForecastProvider

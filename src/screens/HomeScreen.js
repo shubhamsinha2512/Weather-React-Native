@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext} from 'react'
+import React, { useContext} from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import { BlurView } from '@react-native-community/blur'
 import { StyleSheet, ScrollView} from 'react-native'
 
 import Gradient from '../common/gradients/index'
 import {CurrentConext} from '../contexts/CurrentContext'
+import {DayForecastContext} from '../contexts/DayForecastContext'
+import {TodayForecastContext} from '../contexts/TodayForecastContext'
 
 import CurrentSummary from '../components/CurrentSummary'
 import Divider from '../components/Divider'
@@ -15,11 +16,13 @@ import Header from '../components/Header'
 
 const HomeScreen = ({navigation}) => {
 
-    const {location} = useContext(CurrentConext)    
-    // console.log(location)
+    const {location} = useContext(CurrentConext)  
+    const todayForecast = useContext(TodayForecastContext)
+    // const forecast = useContext(DayForecastContext)  
+    // console.log(todayForecast)
     return (
             <LinearGradient style={styles.gradient}
-                colors={Gradient.Sunny}
+                colors={Gradient.Cloudy}
                 start={Gradient.start}
                 end={Gradient.end}
             >
